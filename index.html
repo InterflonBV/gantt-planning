@@ -3,1192 +3,488 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Interflon | Stakeholder Project Planning</title>
-
 <style>
-:root {
-  --red: #E42313;
-  --red-dark: #b91c10;
-  --orange: #FAA61A;
-  --green: #35865c;
-  --background: #f7f7f7;
-  --border: #e2e2e2;
-  --text: #202020;
-  --muted: #707070;
-  font-family: "Noto Sans", Arial, sans-serif;
+:root{
+  --red:#E42313;
+  --orange:#FAA61A;
+  --green:#368c68;
+  --border:#e2e2e2;
+  font-family:"Noto Sans",Arial,sans-serif;
+  color:#202020;
 }
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: var(--background);
-  color: var(--text);
+*{box-sizing:border-box}
+body{margin:0;background:#f7f7f7}
+header{
+  background:#fff;
+  padding:20px clamp(14px,3vw,38px);
+  border-bottom:5px solid var(--red);
 }
-
-header {
-  background: white;
-  padding: 22px 32px;
-  border-bottom: 5px solid var(--red);
+.brandline{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:12px;
 }
-
-.brand {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 12px;
+.brandsub{
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#777;
 }
-
-.logo {
-  color: var(--red);
-  font-size: 32px;
-  font-weight: 900;
-  letter-spacing: -1.5px;
+.brandline img{
+  width:180px;
+  height:auto;
+  object-fit:contain;
 }
-
-.subtitle {
-  color: var(--muted);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+h1{font-size:25px;margin:8px 0 6px}
+header p{font-size:12px;color:#666;margin:0}
+main{max-width:1800px;margin:auto;padding:18px clamp(10px,2vw,30px)}
+.panel{
+  background:#fff;
+  border:1px solid var(--border);
+  padding:15px;
+  border-radius:6px;
+  margin-bottom:14px;
 }
-
-h1 {
-  margin: 8px 0 5px;
-  font-size: 25px;
+.toolbar{display:flex;align-items:end;gap:12px;flex-wrap:wrap}
+label{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  font-size:12px;
+  font-weight:650;
 }
-
-header p {
-  color: var(--muted);
-  font-size: 13px;
-  margin: 0;
+input,select{
+  font:inherit;
+  font-size:13px;
+  padding:9px;
+  border:1px solid #ccc;
+  border-radius:4px;
+  background:white;
 }
-
-main {
-  max-width: 1800px;
-  margin: auto;
-  padding: 20px;
+input[type=search]{width:220px}
+button{
+  border:1px solid var(--red);
+  color:var(--red);
+  background:#fff;
+  border-radius:4px;
+  padding:9px 12px;
+  font-weight:700;
+  cursor:pointer;
 }
-
-.panel {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 16px;
-  margin-bottom: 15px;
+button:hover{background:#fff1ef}
+.meta{display:flex;gap:10px;margin-left:auto;flex-wrap:wrap}
+.chip{
+  background:#f1f1f1;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:12px;
 }
-
-.toolbar {
-  display: flex;
-  align-items: end;
-  flex-wrap: wrap;
-  gap: 12px;
+.chip.m{background:#fff0db}
+.viewport{
+  overflow:auto;
+  max-height:75vh;
+  border:1px solid var(--border);
+  border-radius:5px;
 }
-
-label {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 12px;
-  font-weight: 600;
+.chart{min-width:max-content}
+.chartrow{
+  display:flex;
+  min-height:46px;
+  border-bottom:1px solid #ededed;
 }
-
-input, select {
-  border: 1px solid #ccc;
-  background: white;
-  border-radius: 4px;
-  padding: 9px;
-  font: inherit;
-  font-size: 13px;
+.chartrow.heading{
+  position:sticky;
+  top:0;
+  z-index:5;
+  background:#f1f1f1;
+  min-height:40px;
 }
-
-input[type="search"] {
-  width: 230px;
+.chartrow.group{
+  min-height:36px;
+  background:#f1f1f1;
+  font-weight:bold;
 }
-
-button {
-  padding: 9px 12px;
-  border: 1px solid var(--red);
-  border-radius: 4px;
-  background: white;
-  color: var(--red);
-  font-weight: bold;
-  cursor: pointer;
+.cellname{
+  width:325px;
+  flex-shrink:0;
+  padding:8px 12px;
+  position:sticky;
+  left:0;
+  z-index:2;
+  background:#fff;
+  border-right:1px solid #ddd;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:4px;
+  font-size:12px;
 }
-
-button:hover {
-  background: #fff1ef;
-}
-
-.meta {
-  margin-left: auto;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.chip {
-  padding: 6px 10px;
-  background: #f1f1f1;
-  border-radius: 20px;
-  font-size: 12px;
-}
-
-.chip.milestone {
-  background: #fff0db;
-}
-
-.viewport {
-  overflow: auto;
-  max-height: 75vh;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-}
-
-.chart {
-  min-width: max-content;
-}
-
-.chartrow {
-  display: flex;
-  min-height: 48px;
-  border-bottom: 1px solid #ededed;
-}
-
-.chartrow.heading {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  background: #f0f0f0;
-  min-height: 42px;
-}
-
-.chartrow.group {
-  background: #f0f0f0;
-  min-height: 38px;
-  font-weight: bold;
-}
-
-.cellname {
-  width: 345px;
-  flex-shrink: 0;
-  position: sticky;
-  left: 0;
-  z-index: 2;
-  background: white;
-  border-right: 1px solid #ddd;
-  padding: 8px 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.heading .cellname {
-  background: #f0f0f0;
-  z-index: 6;
-  font-weight: bold;
-}
-
-.group .cellname {
-  background: #f0f0f0;
-  font-size: 13px;
-}
-
-.detail {
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.timeline {
-  position: relative;
-  flex-shrink: 0;
-  background: repeating-linear-gradient(
+.heading .cellname{background:#f1f1f1;z-index:6}
+.group .cellname{background:#f1f1f1}
+.detail{color:#777;font-size:11px}
+.timeline{
+  position:relative;
+  flex:none;
+  background:repeating-linear-gradient(
     to right,
-    white 0,
-    white calc(var(--month-width) - 1px),
-    #e8e8e8 calc(var(--month-width) - 1px),
-    #e8e8e8 var(--month-width)
+    #fff 0,
+    #fff calc(var(--w) - 1px),
+    #e8e8e8 calc(var(--w) - 1px),
+    #e8e8e8 var(--w)
   );
 }
-
-.group .timeline {
-  background: #f0f0f0;
+.group .timeline{background:#f1f1f1}
+.month{
+  position:absolute;
+  top:0;
+  height:100%;
+  padding:10px 7px;
+  font-size:11px;
+  color:#555;
+  border-right:1px solid #ddd;
+  white-space:nowrap;
 }
-
-.month {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  padding: 11px 7px;
-  border-right: 1px solid #d8d8d8;
-  font-size: 11px;
-  color: #555;
-  white-space: nowrap;
+.bar{
+  position:absolute;
+  top:11px;
+  height:23px;
+  background:var(--red);
+  border-radius:4px;
+  min-width:3px;
+  cursor:help;
 }
-
-.bar {
-  position: absolute;
-  top: 12px;
-  height: 24px;
-  background: var(--red);
-  border-radius: 4px;
-  min-width: 3px;
-  cursor: help;
+.bar:hover{background:#b7190c}
+.diamond{
+  position:absolute;
+  top:13px;
+  width:18px;
+  height:18px;
+  background:var(--orange);
+  transform:translateX(-50%) rotate(45deg);
+  border:2px solid white;
+  box-shadow:0 0 0 1px #d18b31;
+  border-radius:2px;
+  cursor:help;
 }
-
-.bar:hover {
-  background: var(--red-dark);
+.diamond.done{
+  background:var(--green);
+  box-shadow:0 0 0 1px var(--green);
 }
-
-.diamond {
-  position: absolute;
-  top: 15px;
-  width: 17px;
-  height: 17px;
-  background: var(--orange);
-  transform: translateX(-50%) rotate(45deg);
-  border: 2px solid white;
-  border-radius: 2px;
-  box-shadow: 0 0 0 1px #cf8c28;
-  cursor: help;
+.today{
+  position:absolute;
+  top:0;
+  bottom:0;
+  border-left:2px dashed #666;
+  pointer-events:none;
+  z-index:1;
 }
-
-.diamond.done {
-  background: var(--green);
-  box-shadow: 0 0 0 1px var(--green);
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:#666}
+.legend i{display:inline-block;vertical-align:middle;margin-right:7px}
+.legend .swatch{width:20px;height:10px;border-radius:2px;background:var(--red)}
+.legend .point{width:12px;height:12px;transform:rotate(45deg);background:var(--orange)}
+.legend .todayleg{height:18px;border-left:2px dashed #666}
+.help{font-size:12px;color:#777;margin-top:13px;line-height:1.6}
+.empty{padding:30px;color:#777}
+.error{color:#a52318;background:#fff0ed;padding:12px;margin-bottom:14px;border:1px solid #eebbb5}
+footer{
+  padding:15px 22px;
+  background:#fff;
+  border-top:5px solid var(--red);
+  color:#777;
+  font-size:11px;
 }
-
-.today {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  border-left: 2px dashed #666;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-  align-items: center;
-  margin-top: 15px;
-  color: #666;
-  font-size: 12px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.legend-bar {
-  width: 22px;
-  height: 11px;
-  background: var(--red);
-  border-radius: 3px;
-}
-
-.legend-diamond {
-  width: 12px;
-  height: 12px;
-  background: var(--orange);
-  transform: rotate(45deg);
-}
-
-.legend-today {
-  height: 19px;
-  border-left: 2px dashed #666;
-}
-
-.help {
-  color: #777;
-  font-size: 12px;
-  margin-top: 14px;
-  line-height: 1.6;
-}
-
-.empty {
-  padding: 30px;
-  color: #777;
-  white-space: normal;
-}
-
-.error {
-  background: #fff0ed;
-  color: #a52318;
-  border: 1px solid #efc1ba;
-  padding: 14px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-}
-
-.hidden {
-  display: none;
-}
-
-footer {
-  background: white;
-  border-top: 5px solid var(--red);
-  padding: 16px 30px;
-  color: #777;
-  font-size: 11px;
-}
-
-@media (max-width: 700px) {
-  header { padding: 18px; }
-  main { padding: 10px; }
-  .cellname { width: 230px; }
-  input[type="search"] { width: 170px; }
-  .logo { font-size: 26px; }
+@media(max-width:650px){
+  .cellname{width:220px}
+  .brandline img{width:125px}
+  input[type=search]{width:160px}
 }
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="brand">
-    <div class="subtitle">Management project overview</div>
-    <div class="logo">interflon</div>
-  </div>
-
-  <h1>Stakeholder Project Planning</h1>
-  <p>Projectoverzicht op hoofdlijnen | Wrike & SharePoint</p>
+<div class="brandline">
+  <span class="brandsub">Management project overview</span>
+  <img alt="Interflon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAABLBAMAAABkX+Q0AAAAGFBMVEX///////7//f36+vrtsK7pNi7pMiroKiKLWCRqAAAIxUlEQVR42u2az2/cxhXHP0OpjdRGnCEVJZAakbuUAsMoIMta99IChhzH7T3JP5J/JP9B7720ac+JFVtBD0GtH5bbAEmkXZJy4Mj1cobrplFSidMDudJy5TQNEK0u5kWcebOPX77f71Fw0deYc+EQeA4BYPxZmx5Yc4GghN8EiJqjMkdxBkEY04LjbaL2xUBwgqTlKUBnm342EghjwzLYv/mLyx6Tc3Ni9pNIj8IhhiA0Hr6+Yh+ZCR5pvzH314YZOQT/8c2rncnJCf2NN2kPmhPb6nDEEJx/v3E19qyZnPO+NpMTX15+4VM7Ygjh4q9jZZ3ZR1p/2/xaTBxc/mri3FXhiNribausk2kNwvODnPzoveLcPWIwOgYzQW6d7u42ANdwhauux/G5YxgQQu83ZqL31e79SInJOfXJ5M8PJx9PfGxHaAvql1cEr9zbCTvm8FCb6B8/u3r4wuxXh4ejgzD76uGE+PvH7pflUvt7L0rxWJlzNkjnNFn7+0uKqQ+Dkydm0W1h3GbyozzI/+601/cIX7V/dZX8IOkMxspLIXwWx4DTwMZNyEy1SBrlmf5N5igo6U6102tQlMYsmm2I+rQ2JY+S2E9TjmtaL0kp33VNTUbv5Pm3H/4QTTjBszyoEbewm07l4Mo8wylFsH9LeeTdcFAIFMGOlPIvAOOr2Ds3YK9TLe6uVlLIFQBPxhXAk/uwWErh6F8Ku2YBb/8ND/xdYjG2CmuAWuwTq6pJPnyriUYNx+M8WzIi7ACixfHdFhzZuFyst8ojxx+VNx+/sAzQVnelV+2MtdgVFhx9a8UaEak/qh4tOIpjVJ9YQRC9W402Hval9SEIW6uiF9oYKGJJEXNtHaCIw76aw1K1olKxHya2MhiKLAfAXVxpC1W0F1bvCIpYTK8Dti0Ga0f52pXYA1gYCoY2SG3/pOeCh1gycVldnpSYXlVoCoX2iv0wRnj9nS4gni60PbTnda7lcQ/PquW2AY/uaQUtpqNYaTB0rqU1KdjCwPSgW6YLfUhOBPhReVu6nIgQcjEudxonxfBK4FkTWaNSVwGi/FOroEXyZm6jrNeIVW84J2RXjCsGLMSV71Xo2ghFGwtkZYWXH+9NW6kAioG60/UT1QvbTpi78x8JwJ1fH4YQvJzT0x2RLef59HYNQfpwtW6hYr8CadssGtHNi59Csa3oXoInd241S8XZTUV3ppTW/m+xwaYRWJUvPQBEfj0e7iM8I+c/2Gbct1L26gapTqNXecmp8hWKDRah6JpLgM6sApzWh8uGZcodM1OhlrmzeRu4kfckAL3pHbfWTYl9qXr3dpr+q+0GYsgtdQ5Lg6qz3lIDQHgeIEQZE7UBKHTfAGymTfWr4Gpup9aanr+ZGqZL1USm3tAJEeKaoJOlWwhzpWYqllwY1MBapFEpFq0BawFEq1WGgiIBtqud/q98IzpeR2dBW0mv4nH9TENn5U4BhUqsUvXwWWC8AURqR0r556Gym+kFivcBxm7kWICxN6qd0k67bgbpF6tGgZUPpJq/+/KgFGylc3ANeZ25DcEMyiULxdPrjSEIVmcAcmZlmbwzsNM3KFGJsM/Diis1RViB4P9NRVlqzPR31XJ+M7Zet3GWUDewrVychpfSFsCWUhDfD2FKKzda/o6cn8XK6a4bzvCqM34xMW6zbo4WSilohRribfq0/vk1KdLhQ1rrGMBTdHfdUhF6QFTG1oD0boei5w7PF0QjMzhPJUVdI+IpuDXzfHVHKnfIYooYzCuIrGnUTqHKwEU/LoA82ikjoCibVJla1axNWWwi0sBXInCkVSauS9AqVRODyMKzCtvY2ACMtjilrdqNjQ0DoDyRKdvMmp6fNk1ecppqq3pcKFxh5GI7l+nrCTYdbrVt3UvyzeSZpmuAIjX5dF7OSbzSlzPd2ZLi6c2OzlqBqpJjuqWG4oI0krGb3Qc3l/I8O9s22GSwoyrm8/DMkRZ0y+ho1XsBgClKs2oBOXYFI6JEBZ9V1dh9qWqKSDZD7Mprb64k0K3zl1fPPC69Lc8UjFGVm9dkPfDhRFE0lRjSlWghUNbuVAaZhUPRMUutSiIyZeffr/eQys9Fpy4YG6R2yCV8Bf8ECFOrpu7M1CjmSbaUu0mUJar3eVjqWW9GpzwcwM5nIardETidoUmbxeRF/a1t1g7PRMfKBY+Nst5ynWJsO9VCdYQy872Ku53XdUWQrqXWeAqm9upv7DwMFdVpbaoI0dvKtT4NelZrrbUFC85tadIIWybOkgRTe5E2yprGva0+j3RNajOoiKKxt9DQAu7dH7LGpsyDT02p1WOcqACKIFnmGCDiAEQEwGMiDpBpxPG+7x8DOL4PcCDueSto39+7K3s40XHZHiyzOxia0pjCt+SE9fAfRIm0OwVgN7B2A4yB/PYxtoBuF2PMSxulU45vYDL2uuXZAsxxRdHemvXQ+oNGLOxGmeBNd4OsGAyafjZ2Y9oq992i3nG+qcSTtR8wdxPPHgU04rHl422n+J9zxygzv5PKfl6rXhszq3l+UOsp+/2g7UAEmTnpIB1FERMBcUk+oRhEs41oZgZEs6Thq6GeEpxG+k6eH/9poKl0xNtWqt//KANQz8vM940+rfGmD+XsTx5/fdqhXrsket2tH6W5P9SH3z9fsFNtKdJFNzpB8NBPkN1whN8j0i3PuGPX2k4TEJG7/5arcNdHOe6ywdErws5N7hl/1rOPjl6/9I11Hpz7h4na6LMXLxxOfnl5dvYTrf9zc+VyMtGb+YM97xGwM16baGTLiYoXCl8L5ctY2eBv9ZnH+XyDqc9i3w5ytOcBWa6s8+T8h6/Dn0QaD98KEoUuhwV+9x7x+UOofx5Lwj0aHeEBWkR7u+n5C6HmEQC9LyaJ1CEwp9q7O6NA4AwXw342dsPzFZnWe6lrRiGEM/W4n9ESCtvddkaCYFgPAF5UFZ6KkVxj4plZjZPa60KkMOrr+T8PPIfwHMJzCGdLltaFQxj3Lh6CvnAI/wXnPAA+s73zugAAAABJRU5ErkJggg==">
+</div>
+<h1>Stakeholder Project Planning</h1>
+<p>Projectoverzicht op hoofdlijnen | Wrike &amp; SharePoint</p>
 </header>
 
 <main>
-
-<div id="errorBox" class="error hidden"></div>
-
+<div id="error" class="error" hidden></div>
 <div class="panel toolbar">
-
-  <label>
-    Zoeken
-    <input
-      type="search"
-      id="search"
-      placeholder="Zoek project of mijlpaal"
-    >
-  </label>
-
-  <label>
-    Project
-    <select id="projectFilter">
-      <option value="">Alle projecten</option>
-    </select>
-  </label>
-
-  <label>
-    Weergave
-    <select id="zoom">
-      <option value="42">Compact</option>
-      <option value="72" selected>Normaal</option>
-      <option value="116">Ruim</option>
-    </select>
-  </label>
-
-  <label>
-    Toon
-    <select id="typeFilter">
-      <option value="all">Alle onderdelen</option>
-      <option value="task">Alleen projecten</option>
-      <option value="milestone">Alleen mijlpalen</option>
-    </select>
-  </label>
-
-  <button id="reset" type="button">
-    Filters wissen
-  </button>
-
-  <div class="meta">
-    <span class="chip" id="projectCount">0 projecten</span>
-    <span class="chip milestone" id="milestoneCount">
-      0 mijlpalen
-    </span>
-  </div>
-
+<label>Zoeken<input id="q" type="search" placeholder="Zoek project of mijlpaal"></label>
+<label>Project<select id="project"><option value="">Alle projecten</option></select></label>
+<label>Weergave<select id="zoom">
+<option value="42">Compact</option>
+<option value="72" selected>Normaal</option>
+<option value="116">Ruim</option>
+</select></label>
+<label>Toon<select id="kind">
+<option value="all">Alle onderdelen</option>
+<option value="task">Alleen projecten</option>
+<option value="milestone">Alleen mijlpalen</option>
+</select></label>
+<button id="reset">Filters wissen</button>
+<div class="meta">
+<span class="chip" id="taskcount">0 projecten</span>
+<span class="chip m" id="milecount">0 mijlpalen</span>
 </div>
-
+</div>
 <div class="panel">
-
-  <div class="viewport" id="viewport">
-    <div class="chart" id="chart">
-      <div class="empty">Gantt-gegevens laden...</div>
-    </div>
-  </div>
-
-  <div class="legend">
-
-    <div class="legend-item">
-      <span class="legend-bar"></span>
-      Wrike-project
-    </div>
-
-    <div class="legend-item">
-      <span class="legend-diamond"></span>
-      SharePoint-mijlpaal
-    </div>
-
-    <div class="legend-item">
-      <span class="legend-today"></span>
-      Vandaag
-    </div>
-
-  </div>
-
-  <div class="help">
-    Plaats de muis op een projectbalk of mijlpaal voor
-    de naam, datum en status.
-    Operationele Wrike-taken worden niet weergegeven.
-    De planning is alleen-lezen en wordt bijgewerkt
-    na een handmatige publicatie.
-  </div>
-
+<div class="viewport"><div class="chart" id="chart">
+<div class="empty">Gantt-gegevens laden...</div>
+</div></div>
+<div class="legend">
+<span><i class="swatch"></i>Wrike-project</span>
+<span><i class="point"></i>SharePoint-mijlpaal</span>
+<span><i class="todayleg"></i>Vandaag</span>
 </div>
-
+<div class="help">
+Plaats de muis op een projectbalk of mijlpaal voor naam, datum en status.
+De planning is alleen-lezen en wordt bijgewerkt na een handmatige publicatie.
+</div>
+</div>
 </main>
-
-<footer>
-  Interflon · Stakeholder Planning ·
-  <span id="publishedAt">Nog niet gepubliceerd</span>
-  · REV04
-</footer>
+<footer>Interflon · Stakeholder Planning · <span id="published">Nog niet gepubliceerd</span> · REV05</footer>
 
 <script>
 "use strict";
 
-/*
-  INTERFLON STAKEHOLDER GANTT — REV04
+const $=id=>document.getElementById(id);
+const DAY=86400000;
+let all=[];
+let first,last,months=0;
 
-  Databron:
-  ./gantt-data.json
-
-  Wordt gegenereerd door:
-  validate_and_publish.py
-
-  Verwacht schema:
-  interflon-stakeholder-gantt-v1
-
-  Alleen lezen.
-  Geen automatische Wrike- of SharePoint-verbinding.
-*/
-
-const DATA_FILE = "./gantt-data.json";
-
-const DAY_MS = 86400000;
-
-let allItems = [];
-let timelineStart = null;
-let timelineEnd = null;
-let monthCount = 0;
-
-const $ = id => document.getElementById(id);
-
-function parseDate(value) {
-  if (
-    typeof value !== "string" ||
-    !/^\d{4}-\d{2}-\d{2}$/.test(value)
-  ) {
-    throw new Error("Ongeldige datum: " + value);
+function date(s){
+  if(typeof s!=="string"||!/^\d{4}-\d{2}-\d{2}$/.test(s))
+    throw Error("Ongeldige datum: "+s);
+  const d=new Date(s+"T00:00:00Z");
+  if(isNaN(d.getTime())||d.toISOString().slice(0,10)!==s)
+    throw Error("Ongeldige datum: "+s);
+  return d;
+}
+function month(d){
+  return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),1));
+}
+function addMonth(d,n){
+  return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+n,1));
+}
+function element(tag,cls,content){
+  const e=document.createElement(tag);
+  e.className=cls||"";
+  if(content!==undefined)e.textContent=content;
+  return e;
+}
+function rootGroup(p,map){
+  let current=p;
+  const seen=new Set([String(p.wrikeId)]);
+  while(current.parentWrikeId){
+    const parent=map.get(String(current.parentWrikeId));
+    if(!parent)throw Error("Bovenliggend project ontbreekt: "+current.name);
+    if(seen.has(String(parent.wrikeId)))throw Error("Cirkel in projecthiërarchie");
+    seen.add(String(parent.wrikeId));
+    current=parent;
   }
-
-  const date = new Date(value + "T00:00:00Z");
-
-  if (
-    Number.isNaN(date.getTime()) ||
-    date.toISOString().slice(0, 10) !== value
-  ) {
-    throw new Error("Ongeldige datum: " + value);
+  return current.parentName||current.name;
+}
+function hierarchyKey(p,map){
+  let parts=[String(p.name)],cur=p;
+  const seen=new Set([String(p.wrikeId)]);
+  while(cur.parentWrikeId){
+    cur=map.get(String(cur.parentWrikeId));
+    if(!cur)throw Error("Ongeldige parentWrikeId");
+    if(seen.has(String(cur.wrikeId)))throw Error("Cirkel in hiërarchie");
+    seen.add(String(cur.wrikeId));
+    parts.unshift(String(cur.name));
   }
-
-  return date;
+  return parts.join(" / ");
 }
+function loadModel(data){
+  if(data.schema!=="interflon-stakeholder-gantt-v1"||
+     !Array.isArray(data.projects)||!Array.isArray(data.milestones))
+    throw Error("Ongeldig publicatiebestand");
 
-function firstOfMonth(date) {
-  return new Date(Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    1
-  ));
-}
+  const map=new Map(data.projects.map(p=>[String(p.wrikeId),p]));
+  if(map.size!==data.projects.length)throw Error("Dubbele Wrike-ID");
 
-function addMonths(date, number) {
-  return new Date(Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth() + number,
-    1
-  ));
-}
-
-function daysBetween(a, b) {
-  return (b.getTime() - a.getTime()) / DAY_MS;
-}
-
-function createElement(tag, className, text) {
-  const element = document.createElement(tag);
-
-  if (className) {
-    element.className = className;
-  }
-
-  if (text !== undefined) {
-    element.textContent = text;
-  }
-
-  return element;
-}
-
-function showError(message) {
-  const box = $("errorBox");
-
-  box.textContent = message;
-  box.classList.remove("hidden");
-
-  $("chart").replaceChildren(
-    createElement(
-      "div",
-      "empty",
-      "De Gantt kan niet worden weergegeven."
-    )
-  );
-}
-
-function clearError() {
-  $("errorBox").classList.add("hidden");
-  $("errorBox").textContent = "";
-}
-
-/*
-  Bepaal bovenliggende projectgroep.
-
-  parentWrikeId verwijst naar een project in
-  dezelfde dataset, wanneer dat geselecteerd is.
-
-  parentName kan verwijzen naar een bovenliggende
-  Wrike-container buiten de stakeholderselectie.
-*/
-
-function resolveRootProject(project, byId) {
-  let current = project;
-  const visited = new Set();
-
-  while (current.parentWrikeId) {
-    const id = String(current.parentWrikeId);
-
-    if (visited.has(id)) {
-      throw new Error(
-        "Cirkel in projecthiërarchie: " + project.name
-      );
-    }
-
-    visited.add(id);
-
-    const parent = byId.get(id);
-
-    if (!parent) {
-      throw new Error(
-        "Bovenliggend project ontbreekt: " + project.name
-      );
-    }
-
-    current = parent;
-  }
-
-  return current.parentName ||
-         current.name ||
-         "Overige projecten";
-}
-
-/*
-  Wrike-projecten en SharePoint-mijlpalen
-  converteren naar het bestaande Gantt-model.
-*/
-
-function convertData(data) {
-  if (
-    !data ||
-    data.schema !== "interflon-stakeholder-gantt-v1" ||
-    !Array.isArray(data.projects) ||
-    !Array.isArray(data.milestones)
-  ) {
-    throw new Error(
-      "gantt-data.json heeft niet het verwachte formaat."
-    );
-  }
-
-  const byId = new Map();
-
-  for (const project of data.projects) {
-    const id = String(project.wrikeId);
-
-    if (byId.has(id)) {
-      throw new Error("Dubbele Wrike-ID: " + id);
-    }
-
-    byId.set(id, project);
-  }
-
-  const projects = data.projects.map(project => {
-    const start = String(project.startDate);
-    const end = String(project.endDate);
-
-    if (parseDate(end) < parseDate(start)) {
-      throw new Error(
-        "Einddatum vóór startdatum: " + project.name
-      );
-    }
-
+  const projects=data.projects.map(p=>{
+    date(p.startDate);date(p.endDate);
+    if(p.endDate<p.startDate)throw Error("Ongeldige projectperiode");
     return {
-      type: "task",
-      name: String(project.name),
-      project: resolveRootProject(project, byId),
-      start: start,
-      end: end,
-      status: String(project.status || "New"),
-      wrikeId: String(project.wrikeId),
-      parentWrikeId: String(
-        project.parentWrikeId || ""
-      ),
-      level: Number(project.level || 1)
+      type:"task",name:p.name,
+      project:rootGroup(p,map),
+      start:p.startDate,end:p.endDate,
+      status:p.status,level:Number(p.level||1),
+      sortKey:hierarchyKey(p,map),
+      key:p.wrikeId
     };
   });
 
-  const milestones = data.milestones.map(milestone => {
-    const relatedProject = byId.get(
-      String(milestone.wrikeId)
-    );
-
-    if (!relatedProject) {
-      throw new Error(
-        "Mijlpaal zonder geldig Wrike-project: " +
-        milestone.title
-      );
-    }
-
-    const date = String(milestone.date);
-    parseDate(date);
-
+  const milestones=data.milestones.map(m=>{
+    const p=map.get(String(m.wrikeId));
+    if(!p)throw Error("Ongeldige projectkoppeling: "+m.title);
+    date(m.date);
     return {
-      type: "milestone",
-      name: String(milestone.title),
-      project: resolveRootProject(
-        relatedProject,
-        byId
-      ),
-      parentProject: relatedProject.name,
-      start: date,
-      end: date,
-      status: String(
-        milestone.status || "Planned"
-      ),
-      level: Number(relatedProject.level || 1) + 1,
-      id: milestone.id
+      type:"milestone",name:m.title,
+      project:rootGroup(p,map),
+      parentProject:p.name,
+      start:m.date,end:m.date,
+      status:m.status||"Planned",
+      level:Number(p.level||1)+1,
+      sortKey:hierarchyKey(p,map)+" / "+m.date+" "+m.title,
+      key:"m"+m.id
     };
   });
 
-  return [...projects, ...milestones];
+  return [...projects,...milestones];
 }
-
-/*
-  Tijdlijn opbouwen.
-*/
-
-function calculateTimeline() {
-  if (!allItems.length) {
-    timelineStart = firstOfMonth(new Date());
-    timelineEnd = addMonths(timelineStart, 4);
-    monthCount = 4;
-    return;
-  }
-
-  const starts = allItems.map(
-    item => parseDate(item.start).getTime()
+function timeline(){
+  const values=all.flatMap(x=>[+date(x.start),+date(x.end)]);
+  first=addMonth(month(new Date(Math.min(...values,Date.now()))),-1);
+  last=addMonth(month(new Date(Math.max(...values,Date.now()))),2);
+  months=Math.max(3,
+    (last.getUTCFullYear()-first.getUTCFullYear())*12+
+    last.getUTCMonth()-first.getUTCMonth()
   );
-
-  const ends = allItems.map(
-    item => parseDate(item.end).getTime()
-  );
-
-  const firstDate = new Date(
-    Math.min(...starts, Date.now())
-  );
-
-  const lastDate = new Date(
-    Math.max(...ends, Date.now())
-  );
-
-  timelineStart = addMonths(
-    firstOfMonth(firstDate),
-    -1
-  );
-
-  timelineEnd = addMonths(
-    firstOfMonth(lastDate),
-    2
-  );
-
-  monthCount =
-    (timelineEnd.getUTCFullYear() -
-      timelineStart.getUTCFullYear()) * 12 +
-    timelineEnd.getUTCMonth() -
-    timelineStart.getUTCMonth();
-
-  monthCount = Math.max(3, monthCount);
 }
-
-function dateOffset(date, width) {
-  const value =
-    typeof date === "string"
-      ? parseDate(date)
-      : date;
-
-  const monthStart = firstOfMonth(value);
-
-  const monthIndex =
-    (monthStart.getUTCFullYear() -
-      timelineStart.getUTCFullYear()) * 12 +
-    monthStart.getUTCMonth() -
-    timelineStart.getUTCMonth();
-
-  const nextMonth = addMonths(monthStart, 1);
-
-  const fraction =
-    (value.getTime() - monthStart.getTime()) /
-    (nextMonth.getTime() - monthStart.getTime());
-
-  return width * (monthIndex + fraction);
+function offset(value,w){
+  const x=typeof value==="string"?date(value):value;
+  const m=month(x);
+  const i=(m.getUTCFullYear()-first.getUTCFullYear())*12+
+          m.getUTCMonth()-first.getUTCMonth();
+  return w*(i+(x-m)/(addMonth(m,1)-m));
 }
-
-/*
-  Projectfilter vullen.
-*/
-
-function populateProjectFilter() {
-  const dropdown = $("projectFilter");
-
-  dropdown.replaceChildren();
-
-  const allOption = new Option(
-    "Alle projecten",
-    ""
-  );
-
-  dropdown.append(allOption);
-
-  const groups = [
-    ...new Set(allItems.map(item => item.project))
-  ];
-
-  groups.sort((a, b) =>
-    a.localeCompare(b, "nl")
-  );
-
-  for (const group of groups) {
-    dropdown.append(new Option(group, group));
-  }
+function makeRow(w,group=false){
+  const r=element("div","chartrow"+(group?" group":""));
+  const left=element("div","cellname");
+  const right=element("div","timeline");
+  right.style.width=(months*w)+"px";
+  right.style.setProperty("--w",w+"px");
+  r.append(left,right);
+  return [r,left,right];
 }
+function render(){
+  const w=Number($("zoom").value);
+  const project=$("project").value;
+  const kind=$("kind").value;
+  const search=$("q").value.toLocaleLowerCase("nl");
 
-/*
-  Gantt-rij aanmaken.
-*/
-
-function makeRow(width, group = false) {
-  const row = createElement(
-    "div",
-    "chartrow" + (group ? " group" : "")
+  const rows=all.filter(x=>
+    (!project||x.project===project)&&
+    (kind==="all"||x.type===kind)&&
+    (!search||(x.name+" "+x.project+" "+(x.parentProject||""))
+      .toLocaleLowerCase("nl").includes(search))
   );
 
-  const left = createElement("div", "cellname");
-  const right = createElement("div", "timeline");
-
-  right.style.width =
-    (monthCount * width) + "px";
-
-  right.style.setProperty(
-    "--month-width",
-    width + "px"
+  rows.sort((a,b)=>
+    a.project.localeCompare(b.project,"nl")||
+    a.sortKey.localeCompare(b.sortKey,"nl")||
+    a.start.localeCompare(b.start)
   );
 
-  row.append(left, right);
+  $("taskcount").textContent=rows.filter(x=>x.type==="task").length+" projecten";
+  $("milecount").textContent=rows.filter(x=>x.type==="milestone").length+" mijlpalen";
 
-  return { row, left, right };
-}
-
-/*
-  Maandkoppen tekenen.
-*/
-
-function renderHeader(width) {
-  const result = makeRow(width);
-
-  result.row.classList.add("heading");
-  result.left.textContent =
-    "Project / onderdeel / mijlpaal";
-
-  for (let i = 0; i < monthCount; i++) {
-    const date = addMonths(timelineStart, i);
-
-    const month = createElement(
-      "div",
-      "month",
-      date.toLocaleDateString("nl-NL", {
-        month: "short",
-        year: "numeric",
-        timeZone: "UTC"
-      })
-    );
-
-    month.style.left =
-      (i * width) + "px";
-
-    month.style.width =
-      width + "px";
-
-    result.right.append(month);
-  }
-
-  return result.row;
-}
-
-/*
-  Vandaag-indicator.
-*/
-
-function addTodayIndicator(timeline, width) {
-  const now = new Date();
-
-  if (
-    now < timelineStart ||
-    now > timelineEnd
-  ) {
-    return;
-  }
-
-  const today = createElement(
-    "div",
-    "today"
-  );
-
-  today.style.left =
-    dateOffset(now, width) + "px";
-
-  timeline.append(today);
-}
-
-/*
-  Balken en mijlpalen tekenen.
-*/
-
-function renderItem(item, width) {
-  const result = makeRow(width);
-
-  const indentation =
-    Math.max(0, item.level - 1) * 16;
-
-  result.left.style.paddingLeft =
-    (12 + indentation) + "px";
-
-  const prefix =
-    item.level > 1 ? "↳ " : "";
-
-  result.left.append(
-    createElement(
-      "span",
-      "",
-      prefix + item.name
-    )
-  );
-
-  let detailText =
-    item.status + " · " + item.start;
-
-  if (item.type === "task") {
-    detailText += " → " + item.end;
-  } else {
-    detailText +=
-      " · " + item.parentProject;
-  }
-
-  result.left.append(
-    createElement(
-      "span",
-      "detail",
-      detailText
-    )
-  );
-
-  let marker;
-
-  if (item.type === "milestone") {
-    marker = createElement(
-      "div",
-      "diamond" +
-      (/done|complete|completed|gereed|afgerond/i
-        .test(item.status) ? " done" : "")
-    );
-
-    marker.style.left =
-      dateOffset(item.start, width) + "px";
-
-  } else {
-    marker = createElement(
-      "div",
-      "bar"
-    );
-
-    const start = dateOffset(
-      item.start,
-      width
-    );
-
-    const end = dateOffset(
-      new Date(
-        parseDate(item.end).getTime() +
-        DAY_MS
-      ),
-      width
-    );
-
-    marker.style.left = start + "px";
-
-    marker.style.width =
-      Math.max(3, end - start) + "px";
-  }
-
-  marker.title =
-    item.name + "\n" +
-    (item.type === "task"
-      ? "Wrike-project"
-      : "SharePoint-mijlpaal") + "\n" +
-    "Start: " + item.start + "\n" +
-    "Einde: " + item.end + "\n" +
-    "Status: " + item.status;
-
-  result.right.append(marker);
-
-  addTodayIndicator(
-    result.right,
-    width
-  );
-
-  return result.row;
-}
-
-/*
-  Volledige Gantt renderen.
-*/
-
-function render() {
-  const selectedProject =
-    $("projectFilter").value;
-
-  const search =
-    $("search").value
-      .trim()
-      .toLocaleLowerCase("nl");
-
-  const typeFilter =
-    $("typeFilter").value;
-
-  const width = Number(
-    $("zoom").value
-  );
-
-  const filtered = allItems.filter(item => {
-    if (
-      selectedProject &&
-      item.project !== selectedProject
-    ) {
-      return false;
-    }
-
-    if (
-      typeFilter !== "all" &&
-      item.type !== typeFilter
-    ) {
-      return false;
-    }
-
-    if (search) {
-      const searchable = (
-        item.name + " " +
-        item.project + " " +
-        (item.parentProject || "")
-      ).toLocaleLowerCase("nl");
-
-      if (!searchable.includes(search)) {
-        return false;
-      }
-    }
-
-    return true;
-  });
-
-  filtered.sort((a, b) =>
-    a.project.localeCompare(b.project, "nl") ||
-    a.start.localeCompare(b.start) ||
-    (
-      a.type === "task" ? -1 : 1
-    ) -
-    (
-      b.type === "task" ? -1 : 1
-    )
-  );
-
-  $("projectCount").textContent =
-    filtered.filter(
-      item => item.type === "task"
-    ).length + " projecten";
-
-  $("milestoneCount").textContent =
-    filtered.filter(
-      item => item.type === "milestone"
-    ).length + " mijlpalen";
-
-  const chart = $("chart");
+  const chart=$("chart");
   chart.replaceChildren();
 
-  chart.append(
-    renderHeader(width)
-  );
+  const [head,headLeft,headRight]=makeRow(w);
+  head.classList.add("heading");
+  headLeft.textContent="Project / mijlpaal";
 
-  let currentGroup = null;
+  for(let i=0;i<months;i++){
+    const m=addMonth(first,i);
+    const x=element("div","month",m.toLocaleDateString("nl-NL",{
+      month:"short",year:"numeric",timeZone:"UTC"
+    }));
+    x.style.left=i*w+"px";
+    x.style.width=w+"px";
+    headRight.append(x);
+  }
+  chart.append(head);
 
-  for (const item of filtered) {
-    if (item.project !== currentGroup) {
-      currentGroup = item.project;
-
-      const group = makeRow(
-        width,
-        true
-      );
-
-      group.left.textContent =
-        currentGroup;
-
-      chart.append(group.row);
+  let currentGroup="";
+  for(const x of rows){
+    if(x.project!==currentGroup){
+      currentGroup=x.project;
+      const [gr,l]=makeRow(w,true);
+      l.textContent=currentGroup;
+      chart.append(gr);
     }
+    const [r,l,right]=makeRow(w);
+    l.style.paddingLeft=(12+Math.max(0,x.level-1)*15)+"px";
+    l.append(element("span","",(x.level>1?"↳ ":"")+x.name));
 
-    chart.append(
-      renderItem(item, width)
-    );
-  }
+    const details=x.status+" · "+x.start+
+      (x.type==="task"?" → "+x.end:" · "+x.parentProject);
+    l.append(element("span","detail",details));
 
-  if (!filtered.length) {
-    chart.append(
-      createElement(
-        "div",
-        "empty",
-        "Geen projecten of mijlpalen voor deze filters."
-      )
-    );
-  }
-}
-
-/*
-  Filters en gebeurtenissen.
-*/
-
-function setupEvents() {
-  $("search").addEventListener(
-    "input",
-    render
-  );
-
-  $("projectFilter").addEventListener(
-    "change",
-    render
-  );
-
-  $("typeFilter").addEventListener(
-    "change",
-    render
-  );
-
-  $("zoom").addEventListener(
-    "change",
-    render
-  );
-
-  $("reset").addEventListener(
-    "click",
-    () => {
-      $("search").value = "";
-      $("projectFilter").value = "";
-      $("typeFilter").value = "all";
-      $("zoom").value = "72";
-      render();
+    let marker;
+    if(x.type==="milestone"){
+      marker=element("div","diamond"+
+        (/done|complete|afgerond|gereed/i.test(x.status)?" done":""));
+      marker.style.left=offset(x.start,w)+"px";
+    }else{
+      marker=element("div","bar");
+      const a=offset(x.start,w);
+      const b=offset(new Date(+date(x.end)+DAY),w);
+      marker.style.left=a+"px";
+      marker.style.width=Math.max(3,b-a)+"px";
     }
-  );
-}
+    marker.title=x.name+" | "+x.status+" | "+x.start+
+      (x.type==="task"?" t/m "+x.end:"");
+    right.append(marker);
 
-/*
-  JSON laden.
-
-  Een nieuwe versie wordt pas zichtbaar nadat
-  GitHub Actions gantt-data.json heeft gepubliceerd.
-*/
-
-async function loadGantt() {
-  clearError();
-
-  const response = await fetch(
-    DATA_FILE + "?v=" + Date.now(),
-    { cache: "no-store" }
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      "gantt-data.json is nog niet beschikbaar. " +
-      "HTTP " + response.status +
-      ". Publiceer eerst de Gantt via Power Automate."
-    );
+    const now=new Date();
+    if(now>=first&&now<=last){
+      const today=element("div","today");
+      today.style.left=offset(now,w)+"px";
+      right.append(today);
+    }
+    chart.append(r);
   }
-
-  const data = await response.json();
-
-  allItems = convertData(data);
-
-  if (!allItems.length) {
-    throw new Error(
-      "Er zijn geen projecten of mijlpalen beschikbaar."
-    );
-  }
-
-  $("publishedAt").textContent =
-    "Gepubliceerd: " +
-    (data.publishedAt || "datum onbekend");
-
-  calculateTimeline();
-  populateProjectFilter();
-  render();
+  if(!rows.length)
+    chart.append(element("div","empty","Geen onderdelen voor deze filters."));
 }
+async function initialize(){
+  for(const id of ["q","project","zoom","kind"])
+    $(id).addEventListener(id==="q"?"input":"change",render);
 
-/*
-  Initialisatie.
-*/
+  $("reset").onclick=()=>{
+    $("q").value="";
+    $("project").value="";
+    $("zoom").value="72";
+    $("kind").value="all";
+    render();
+  };
 
-async function initialize() {
-  setupEvents();
+  try{
+    const r=await fetch("./gantt-data.json?v="+Date.now(),{cache:"no-store"});
+    if(!r.ok)throw Error("Publicatiegegevens ontbreken (HTTP "+r.status+")");
+    const data=await r.json();
+    all=loadModel(data);
+    if(!all.length)throw Error("Geen projecten beschikbaar");
 
-  try {
-    await loadGantt();
-  } catch (error) {
-    console.error(error);
-    showError(error.message);
+    timeline();
+    const names=[...new Set(all.map(x=>x.project))]
+      .sort((a,b)=>a.localeCompare(b,"nl"));
+    for(const name of names)$("project").append(new Option(name,name));
+
+    $("published").textContent="Gepubliceerd: "+(data.publishedAt||"onbekend");
+    render();
+  }catch(e){
+    $("error").hidden=false;
+    $("error").textContent="Gantt kan niet worden geladen: "+e.message;
+    $("chart").replaceChildren();
   }
 }
-
 initialize();
-
 </script>
-
 </body>
 </html>
