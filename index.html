@@ -55,19 +55,18 @@ header p {
 }
 
 /*
-  OFFICIEEL INTERFLON-LOGO
+  INTERFLON-LOGO
 
-  Origineel transparant PNG-bestand.
-  De afbeelding bevat ook de pay-off.
-  Die wordt buiten het zichtbare kader gehouden.
+  Bestaand officieel PNG-bestand.
+  De ongewenste pay-off wordt met een
+  kleiner zichtbaar kader afgesneden.
 
-  Er wordt geen achtergrond, rand of schaduw
-  rond het logo toegepast.
+  Het oorspronkelijke logo blijft behouden.
 */
 
 .logo-window {
   width: 225px;
-  height: 48px;
+  height: 35px;
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
@@ -122,12 +121,14 @@ label {
 
 input,
 select {
-  font: inherit;
-  font-size: 13px;
-  padding: 9px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 7px 8px;
   border: 1px solid #cccccc;
   border-radius: 4px;
   background: #ffffff;
+  color: #202020;
 }
 
 input[type="search"] {
@@ -139,31 +140,15 @@ button {
   color: var(--red);
   background: #ffffff;
   border-radius: 4px;
-  padding: 9px 12px;
-  font-weight: 700;
+  padding: 7px 11px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
   cursor: pointer;
 }
 
 button:hover {
   background: #fff1ef;
-}
-
-.meta {
-  display: flex;
-  gap: 10px;
-  margin-left: auto;
-  flex-wrap: wrap;
-}
-
-.chip {
-  background: #f1f1f1;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-}
-
-.chip.m {
-  background: #fff0db;
 }
 
 /* GANTT */
@@ -382,7 +367,7 @@ footer {
 
   .logo-window {
     width: 135px;
-    height: 30px;
+    height: 22px;
   }
 
   .logo-window img {
@@ -465,16 +450,6 @@ footer {
     Filters wissen
   </button>
 
-  <div class="meta">
-    <span class="chip" id="taskcount">
-      0 projecten
-    </span>
-
-    <span class="chip m" id="milecount">
-      0 mijlpalen
-    </span>
-  </div>
-
 </div>
 
 <div class="panel">
@@ -512,7 +487,6 @@ footer {
 
 <footer>
   <span id="published">Nog niet gepubliceerd</span>
-  · REV06
 </footer>
 
 <script>
@@ -520,7 +494,6 @@ footer {
 
 /*
   INTERFLON MANAGEMENT PROJECT OVERVIEW
-  REV06
 
   Databron:
   gantt-data.json
@@ -897,18 +870,6 @@ function render() {
     )
   );
 
-  $("taskcount").textContent =
-    rows.filter(
-      x => x.type === "task"
-    ).length +
-    " projecten";
-
-  $("milecount").textContent =
-    rows.filter(
-      x => x.type === "milestone"
-    ).length +
-    " mijlpalen";
-
   const chart =
     $("chart");
 
@@ -1196,11 +1157,39 @@ async function initialize() {
       );
     }
 
+    // Publicatietijd uit JSON:
+    // UTC omzetten naar Nederlandse tijd.
+    const publishedRaw = String(
+      data.publishedAt || ""
+    );
+
+    const publishedDate = new Date(
+      publishedRaw
+        .replace(" UTC", "Z")
+        .replace(" ", "T")
+    );
+
     $("published").textContent =
       "Gepubliceerd: " +
       (
-        data.publishedAt ||
-        "onbekend"
+        publishedRaw &&
+        !isNaN(publishedDate.getTime())
+          ? new Intl.DateTimeFormat(
+              "nl-NL",
+              {
+                timeZone: "Europe/Amsterdam",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+              }
+            ).format(publishedDate)
+          : (
+              publishedRaw ||
+              "onbekend"
+            )
       );
 
     render();
