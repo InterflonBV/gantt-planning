@@ -1,1211 +1,275 @@
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Interflon | Management project overview</title>
-
 <style>
-:root {
-  --red: #E42313;
-  --orange: #FAA61A;
-  --green: #368c68;
-  --border: #e2e2e2;
-  font-family: "Noto Sans", Arial, sans-serif;
-  color: #202020;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #f7f7f7;
-}
-
-/* HEADER */
-
-header {
-  background: #ffffff;
-  border-bottom: 5px solid var(--red);
-  padding: 22px clamp(14px, 3vw, 38px);
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  min-height: 58px;
-}
-
-h1 {
-  font-size: 25px;
-  font-weight: 700;
-  margin: 0 0 7px;
-}
-
-header p {
-  margin: 0;
-  color: #666666;
-  font-size: 12px;
-}
-
-/*
-  INTERFLON-LOGO
-
-  Bestaand officieel PNG-bestand.
-  De ongewenste pay-off wordt met een
-  kleiner zichtbaar kader afgesneden.
-
-  Het oorspronkelijke logo blijft behouden.
-*/
-
-.logo-window {
-  width: 225px;
-  height: 35px;
-  flex-shrink: 0;
-  overflow: hidden;
-  position: relative;
-  background: transparent;
-}
-
-.logo-window img {
-  display: block;
-  position: absolute;
-  top: -8px;
-  left: 0;
-  width: 225px;
-  height: auto;
-  max-width: none;
-  border: none;
-  box-shadow: none;
-  background: transparent;
-}
-
-/* PAGINA */
-
-main {
-  max-width: 1800px;
-  margin: auto;
-  padding: 18px clamp(10px, 2vw, 30px);
-}
-
-.panel {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  padding: 15px;
-  border-radius: 6px;
-  margin-bottom: 14px;
-}
-
-/* FILTERS */
-
-.toolbar {
-  display: flex;
-  align-items: end;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 12px;
-  font-weight: 650;
-}
-
-input,
-select {
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 400;
-  padding: 7px 8px;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  background: #ffffff;
-  color: #202020;
-}
-
-input[type="search"] {
-  width: 220px;
-}
-
-button {
-  border: 1px solid var(--red);
-  color: var(--red);
-  background: #ffffff;
-  border-radius: 4px;
-  padding: 7px 11px;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 400;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #fff1ef;
-}
-
-/* GANTT */
-
-.viewport {
-  overflow: auto;
-  max-height: 75vh;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-}
-
-.chart {
-  min-width: max-content;
-}
-
-.chartrow {
-  display: flex;
-  min-height: 46px;
-  border-bottom: 1px solid #ededed;
-}
-
-.chartrow.heading {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  background: #f1f1f1;
-  min-height: 40px;
-}
-
-.chartrow.group {
-  min-height: 36px;
-  background: #f1f1f1;
-  font-weight: bold;
-}
-
-.cellname {
-  width: 325px;
-  flex-shrink: 0;
-  padding: 8px 12px;
-  position: sticky;
-  left: 0;
-  z-index: 2;
-  background: #ffffff;
-  border-right: 1px solid #dddddd;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.heading .cellname {
-  background: #f1f1f1;
-  z-index: 6;
-}
-
-.group .cellname {
-  background: #f1f1f1;
-}
-
-.detail {
-  color: #777777;
-  font-size: 11px;
-}
-
-.timeline {
-  position: relative;
-  flex: none;
-  background: repeating-linear-gradient(
-    to right,
-    #ffffff 0,
-    #ffffff calc(var(--w) - 1px),
-    #e8e8e8 calc(var(--w) - 1px),
-    #e8e8e8 var(--w)
-  );
-}
-
-.group .timeline {
-  background: #f1f1f1;
-}
-
-.month {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  padding: 10px 7px;
-  font-size: 11px;
-  color: #555555;
-  border-right: 1px solid #dddddd;
-  white-space: nowrap;
-}
-
-/* PROJECTBALKEN */
-
-.bar {
-  position: absolute;
-  top: 11px;
-  height: 23px;
-  background: var(--red);
-  border-radius: 4px;
-  min-width: 3px;
-  cursor: help;
-}
-
-.bar:hover {
-  background: #b7190c;
-}
-
-/* MIJLPALEN */
-
-.diamond {
-  position: absolute;
-  top: 13px;
-  width: 18px;
-  height: 18px;
-  background: var(--orange);
-  transform: translateX(-50%) rotate(45deg);
-  border: 2px solid white;
-  box-shadow: 0 0 0 1px #d18b31;
-  border-radius: 2px;
-  cursor: help;
-}
-
-.diamond.done {
-  background: var(--green);
-  box-shadow: 0 0 0 1px var(--green);
-}
-
-/* VANDAAG */
-
-.today {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  border-left: 2px dashed #666666;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* LEGENDA */
-
-.legend {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-  font-size: 12px;
-  color: #666666;
-}
-
-.legend i {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 7px;
-}
-
-.legend .swatch {
-  width: 20px;
-  height: 10px;
-  border-radius: 2px;
-  background: var(--red);
-}
-
-.legend .point {
-  width: 12px;
-  height: 12px;
-  transform: rotate(45deg);
-  background: var(--orange);
-}
-
-.legend .todayleg {
-  height: 18px;
-  border-left: 2px dashed #666666;
-}
-
-.help {
-  font-size: 12px;
-  color: #777777;
-  margin-top: 13px;
-  line-height: 1.6;
-}
-
-.empty {
-  padding: 30px;
-  color: #777777;
-}
-
-.error {
-  color: #a52318;
-  background: #fff0ed;
-  padding: 12px;
-  margin-bottom: 14px;
-  border: 1px solid #eebbb5;
-}
-
-/* FOOTER */
-
-footer {
-  padding: 15px 22px;
-  background: #ffffff;
-  border-top: 5px solid var(--red);
-  color: #777777;
-  font-size: 11px;
-}
-
-/* MOBIEL */
-
-@media (max-width: 650px) {
-  .cellname {
-    width: 220px;
-  }
-
-  .header-content {
-    gap: 12px;
-  }
-
-  .logo-window {
-    width: 135px;
-    height: 22px;
-  }
-
-  .logo-window img {
-    width: 135px;
-    top: -5px;
-  }
-
-  h1 {
-    font-size: 19px;
-  }
-
-  input[type="search"] {
-    width: 160px;
-  }
-}
+:root{--red:#E42313;--orange:#FAA61A;--green:#368c68;--border:#e2e2e2;font-family:"Noto Sans",Arial,sans-serif;color:#202020}
+*{box-sizing:border-box}
+body{margin:0;background:#f7f7f7}
+header{background:#fff;border-bottom:5px solid var(--red);padding:22px clamp(14px,3vw,38px)}
+.header-content{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:58px}
+h1{font-size:25px;font-weight:700;margin:0 0 7px}
+header p{margin:0;color:#666;font-size:12px}
+/* Bestaande logo-uitsnede ongewijzigd gehouden. */
+.logo-window{width:225px;height:35px;flex-shrink:0;overflow:hidden;position:relative;background:transparent}
+.logo-window img{display:block;position:absolute;top:-8px;left:0;width:225px;height:auto;max-width:none;border:none;box-shadow:none;background:transparent}
+main{max-width:1800px;margin:auto;padding:18px clamp(10px,2vw,30px)}
+.panel{background:#fff;border:1px solid var(--border);padding:15px;border-radius:6px;margin-bottom:14px}
+.toolbar{display:flex;align-items:end;gap:12px;flex-wrap:wrap}
+label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:650}
+input,select{font-family:inherit;font-size:12px;font-weight:400;padding:7px 8px;border:1px solid #ccc;border-radius:4px;background:#fff;color:#202020}
+input[type="search"]{width:220px}
+button{border:1px solid var(--red);color:var(--red);background:#fff;border-radius:4px;padding:7px 11px;font-family:inherit;font-size:12px;font-weight:400;cursor:pointer}
+button:hover{background:#fff1ef}
+/* Alleen nieuwe bediening: geen verandering aan bestaande filters. */
+.folder-option{display:flex;flex-direction:row;align-items:center;gap:8px;min-height:31px;padding:0 2px 1px;font-size:12px;font-weight:400;cursor:pointer;white-space:nowrap}
+.folder-option input{width:15px;height:15px;accent-color:var(--red);margin:0;cursor:pointer;padding:0}
+.viewport{overflow:auto;max-height:75vh;border:1px solid var(--border);border-radius:5px}
+.chart{min-width:max-content}
+.chartrow{display:flex;min-height:46px;border-bottom:1px solid #ededed}
+.chartrow.heading{position:sticky;top:0;z-index:5;background:#f1f1f1;min-height:40px}
+.chartrow.group{min-height:36px;background:#f1f1f1;font-weight:bold}
+.cellname{width:325px;flex-shrink:0;padding:8px 12px;position:sticky;left:0;z-index:2;background:#fff;border-right:1px solid #ddd;display:flex;flex-direction:column;justify-content:center;gap:4px;font-size:12px}
+.heading .cellname{background:#f1f1f1;z-index:6}
+.group .cellname{background:#f1f1f1}
+.detail{color:#777;font-size:11px}
+.timeline{position:relative;flex:none;background:repeating-linear-gradient(to right,#fff 0,#fff calc(var(--w) - 1px),#e8e8e8 calc(var(--w) - 1px),#e8e8e8 var(--w))}
+.group .timeline{background:#f1f1f1}
+.month{position:absolute;top:0;height:100%;padding:10px 7px;font-size:11px;color:#555;border-right:1px solid #ddd;white-space:nowrap}
+.bar{position:absolute;top:11px;height:23px;background:var(--red);border-radius:4px;min-width:3px;cursor:help}
+.bar:hover{background:#b7190c}
+.diamond{position:absolute;top:13px;width:18px;height:18px;background:var(--orange);transform:translateX(-50%) rotate(45deg);border:2px solid white;box-shadow:0 0 0 1px #d18b31;border-radius:2px;cursor:help}
+.diamond.done{background:var(--green);box-shadow:0 0 0 1px var(--green)}
+.today{position:absolute;top:0;bottom:0;border-left:2px dashed #666;pointer-events:none;z-index:1}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:#666}
+.legend i{display:inline-block;vertical-align:middle;margin-right:7px}
+.legend .swatch{width:20px;height:10px;border-radius:2px;background:var(--red)}
+.legend .point{width:12px;height:12px;transform:rotate(45deg);background:var(--orange)}
+.legend .todayleg{height:18px;border-left:2px dashed #666}
+.legend .folderleg{font-style:normal;margin-right:4px;font-size:14px;color:#666}
+.help{font-size:12px;color:#777;margin-top:13px;line-height:1.6}
+.empty{padding:30px;color:#777}
+.error{color:#a52318;background:#fff0ed;padding:12px;margin-bottom:14px;border:1px solid #eebbb5}
+footer{padding:15px 22px;background:#fff;border-top:5px solid var(--red);color:#777;font-size:11px}
+/* Toegevoegd: subtiele folderregel zonder projectbalk of datum. */
+.chartrow.folder-row{min-height:32px;background:#fafafa}
+.folder-row .cellname{background:#fafafa;color:#555;font-size:12px;font-weight:600}
+.folder-row .timeline{background:repeating-linear-gradient(to right,#fafafa 0,#fafafa calc(var(--w) - 1px),#e8e8e8 calc(var(--w) - 1px),#e8e8e8 var(--w))}
+/* Grijs folderpictogram zonder extra afbeelding of externe bibliotheek. */
+.folder-icon,.legend .folderleg{display:inline-block;vertical-align:middle;width:13px;height:10px;border:1px solid #888;border-radius:2px;margin-right:7px;position:relative;flex:none}
+.folder-icon::before,.legend .folderleg::before{content:"";position:absolute;top:-4px;left:0;width:6px;height:3px;border:1px solid #888;border-bottom:0;border-radius:2px 2px 0 0;background:#fafafa}
+@media(max-width:650px){.cellname{width:220px}.header-content{gap:12px}.logo-window{width:135px;height:22px}.logo-window img{width:135px;top:-5px}h1{font-size:19px}input[type="search"]{width:160px}}
 </style>
 </head>
-
 <body>
-
-<header>
-  <div class="header-content">
-
-    <div>
-      <h1>Management project overview</h1>
-      <p>Projectoverzicht op hoofdlijnen</p>
-    </div>
-
-    <div class="logo-window">
-      <img
-        src="./Interflon_logo_pay-off_horizontal_RGB_trans.png"
-        alt="Interflon"
-      >
-    </div>
-
-  </div>
-</header>
-
+<header><div class="header-content"><div><h1>Management project overview</h1><p>Projectoverzicht op hoofdlijnen</p></div><div class="logo-window"><img src="./Interflon_logo_pay-off_horizontal_RGB_trans.png" alt="Interflon"></div></div></header>
 <main>
-
 <div id="error" class="error" hidden></div>
-
 <div class="panel toolbar">
-
-  <label>
-    Zoeken
-    <input
-      id="q"
-      type="search"
-      placeholder="Zoek project of mijlpaal"
-    >
-  </label>
-
-  <label>
-    Project
-    <select id="project">
-      <option value="">Alle projecten</option>
-    </select>
-  </label>
-
-  <label>
-    Weergave
-    <select id="zoom">
-      <option value="42">Compact</option>
-      <option value="72" selected>Normaal</option>
-      <option value="116">Ruim</option>
-    </select>
-  </label>
-
-  <label>
-    Toon
-    <select id="kind">
-      <option value="all">Alle onderdelen</option>
-      <option value="task">Alleen projecten</option>
-      <option value="milestone">Alleen mijlpalen</option>
-    </select>
-  </label>
-
-  <button id="reset" type="button">
-    Filters wissen
-  </button>
-
+<label>Zoeken<input id="q" type="search" placeholder="Zoek project of mijlpaal"></label>
+<label>Project<select id="project"><option value="">Alle projecten</option></select></label>
+<label>Weergave<select id="zoom"><option value="42">Compact</option><option value="72" selected>Normaal</option><option value="116">Ruim</option></select></label>
+<label>Toon<select id="kind"><option value="all">Alle onderdelen</option><option value="task">Alleen projecten</option><option value="milestone">Alleen mijlpalen</option></select></label>
+<label class="folder-option"><input id="showFolders" type="checkbox" checked><span>Folders tonen</span></label>
+<button id="reset" type="button">Filters wissen</button>
 </div>
-
-<div class="panel">
-
-  <div class="viewport">
-    <div class="chart" id="chart">
-      <div class="empty">
-        Gantt-gegevens laden...
-      </div>
-    </div>
-  </div>
-
-  <div class="legend">
-    <span>
-      <i class="swatch"></i>Wrike-project
-    </span>
-
-    <span>
-      <i class="point"></i>Mijlpaal
-    </span>
-
-    <span>
-      <i class="todayleg"></i>Vandaag
-    </span>
-  </div>
-
-  <div class="help">
-    Plaats de muis op een projectbalk of mijlpaal
-    voor naam, datum en status.
-  </div>
-
-</div>
-
+<div class="panel"><div class="viewport"><div class="chart" id="chart"><div class="empty">Gantt-gegevens laden...</div></div></div>
+<div class="legend"><span><i class="swatch"></i>Wrike-project</span><span><i class="point"></i>Mijlpaal</span><span><i class="todayleg"></i>Vandaag</span><span id="folderLegend"><i class="folderleg"></i>Folder</span></div>
+<div class="help">Plaats de muis op een projectbalk of mijlpaal voor naam, datum en status.</div></div>
 </main>
-
-<footer>
-  <span id="published">Nog niet gepubliceerd</span>
-</footer>
-
+<footer><span id="published">Nog niet gepubliceerd</span></footer>
 <script>
 "use strict";
-
-/*
-  INTERFLON MANAGEMENT PROJECT OVERVIEW
-
-  Databron:
-  gantt-data.json
-
-  Projecten, hiërarchie, mijlpalen,
-  tijdlijn en filters blijven behouden.
-*/
-
-const $ = id => document.getElementById(id);
-
-const DAY = 86400000;
-
-let all = [];
-let first;
-let last;
-let months = 0;
-
-/* DATUMFUNCTIES */
-
-function date(s) {
-  if (
-    typeof s !== "string" ||
-    !/^\d{4}-\d{2}-\d{2}$/.test(s)
-  ) {
-    throw Error("Ongeldige datum: " + s);
-  }
-
-  const d = new Date(s + "T00:00:00Z");
-
-  if (
-    isNaN(d.getTime()) ||
-    d.toISOString().slice(0, 10) !== s
-  ) {
-    throw Error("Ongeldige datum: " + s);
-  }
-
+const $=id=>document.getElementById(id);
+const DAY=86400000;
+let all=[],first,last,months=0;
+const folderPaths=new Map();
+function date(s){
+  if(typeof s!=="string"||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(s))throw Error("Ongeldige datum: "+s);
+  const d=new Date(s+"T00:00:00Z");
+  if(isNaN(d.getTime())||d.toISOString().slice(0,10)!==s)throw Error("Ongeldige datum: "+s);
   return d;
 }
-
-function month(d) {
-  return new Date(Date.UTC(
-    d.getUTCFullYear(),
-    d.getUTCMonth(),
-    1
-  ));
-}
-
-function addMonth(d, n) {
-  return new Date(Date.UTC(
-    d.getUTCFullYear(),
-    d.getUTCMonth() + n,
-    1
-  ));
-}
-
-function element(tag, cls, content) {
-  const e = document.createElement(tag);
-
-  e.className = cls || "";
-
-  if (content !== undefined) {
-    e.textContent = content;
+function month(d){return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),1));}
+function addMonth(d,n){return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+n,1));}
+function element(tag,cls,content){const e=document.createElement(tag);e.className=cls||"";if(content!==undefined)e.textContent=content;return e;}
+function rootGroup(p,map){
+  let current=p;const seen=new Set([String(p.wrikeId)]);
+  while(current.parentWrikeId){
+    const parent=map.get(String(current.parentWrikeId));
+    if(!parent)throw Error("Bovenliggend project ontbreekt: "+current.name);
+    if(seen.has(String(parent.wrikeId)))throw Error("Cirkel in projecthiërarchie");
+    seen.add(String(parent.wrikeId));current=parent;
   }
-
-  return e;
+  return current.parentName||current.name;
 }
-
-/* PROJECTHIËRARCHIE */
-
-function rootGroup(p, map) {
-  let current = p;
-
-  const seen = new Set([
-    String(p.wrikeId)
-  ]);
-
-  while (current.parentWrikeId) {
-    const parent = map.get(
-      String(current.parentWrikeId)
-    );
-
-    if (!parent) {
-      throw Error(
-        "Bovenliggend project ontbreekt: " +
-        current.name
-      );
-    }
-
-    if (seen.has(String(parent.wrikeId))) {
-      throw Error(
-        "Cirkel in projecthiërarchie"
-      );
-    }
-
-    seen.add(String(parent.wrikeId));
-
-    current = parent;
+function hierarchyKey(p,map){
+  const parts=[String(p.name)];let cur=p;const seen=new Set([String(p.wrikeId)]);
+  while(cur.parentWrikeId){
+    cur=map.get(String(cur.parentWrikeId));
+    if(!cur)throw Error("Ongeldige parentWrikeId");
+    if(seen.has(String(cur.wrikeId)))throw Error("Cirkel in hiërarchie");
+    seen.add(String(cur.wrikeId));parts.unshift(String(cur.name));
   }
-
-  return current.parentName || current.name;
-}
-
-function hierarchyKey(p, map) {
-  let parts = [String(p.name)];
-
-  let cur = p;
-
-  const seen = new Set([
-    String(p.wrikeId)
-  ]);
-
-  while (cur.parentWrikeId) {
-    cur = map.get(
-      String(cur.parentWrikeId)
-    );
-
-    if (!cur) {
-      throw Error(
-        "Ongeldige parentWrikeId"
-      );
-    }
-
-    if (seen.has(String(cur.wrikeId))) {
-      throw Error(
-        "Cirkel in hiërarchie"
-      );
-    }
-
-    seen.add(String(cur.wrikeId));
-
-    parts.unshift(String(cur.name));
-  }
-
   return parts.join(" / ");
 }
-
-/* PROJECTEN EN MIJLPALEN INLEZEN */
-
-function loadModel(data) {
-  if (
-    !data ||
-    data.schema !== "interflon-stakeholder-gantt-v1" ||
-    !Array.isArray(data.projects) ||
-    !Array.isArray(data.milestones)
-  ) {
-    throw Error(
-      "Ongeldig publicatiebestand"
-    );
+/* Bepaal een weergavesorteersleutel mét folders; echte projectidentiteit blijft Wrike-ID. */
+function hierarchyKeyWithFolders(p,map){
+  const chain=[];let current=p;const seen=new Set();
+  while(current){
+    const pid=String(current.wrikeId);
+    if(seen.has(pid))throw Error("Cirkel in projecthiërarchie");
+    seen.add(pid);
+    chain.unshift({project:current,folders:folderPaths.get(pid)||[]});
+    current=current.parentWrikeId?map.get(String(current.parentWrikeId)):null;
+    if(current===undefined)throw Error("Onbekend bovenliggend project");
   }
-
-  const map = new Map(
-    data.projects.map(p => [
-      String(p.wrikeId),
-      p
-    ])
-  );
-
-  if (map.size !== data.projects.length) {
-    throw Error(
-      "Dubbele Wrike-ID"
-    );
+  const parts=[];
+  for(const node of chain){
+    for(const f of node.folders)parts.push(String(f.name) + "\u0001" + String(f.wrikeId));
+    parts.push(String(node.project.name));
   }
-
-  const projects = data.projects.map(p => {
-    date(p.startDate);
-    date(p.endDate);
-
-    if (p.endDate < p.startDate) {
-      throw Error(
-        "Ongeldige projectperiode"
-      );
+  return parts.join(" / ");
+}
+function loadModel(data){
+  if(!data||data.schema!=="interflon-stakeholder-gantt-v1"||!Array.isArray(data.projects)||!Array.isArray(data.milestones))throw Error("Ongeldig publicatiebestand");
+  const map=new Map(data.projects.map(p=>[String(p.wrikeId),p]));
+  if(map.size!==data.projects.length)throw Error("Dubbele Wrike-ID");
+  folderPaths.clear();
+  if(data.folderPaths!==undefined){
+    if(!Array.isArray(data.folderPaths))throw Error("Ongeldige folderinformatie");
+    for(const path of data.folderPaths){
+      const id=String(path.projectWrikeId);
+      if(!map.has(id)||folderPaths.has(id)||!Array.isArray(path.folders))throw Error("Ongeldig folderpad: "+id);
+      folderPaths.set(id,path.folders.map(f=>({wrikeId:String(f.wrikeId),name:String(f.name)})));
     }
-
-    return {
-      type: "task",
-      name: p.name,
-      project: rootGroup(p, map),
-      start: p.startDate,
-      end: p.endDate,
-      status: p.status,
-      level: Number(p.level || 1),
-      sortKey: hierarchyKey(p, map),
-      key: p.wrikeId
-    };
+  }
+  const projects=data.projects.map(p=>{
+    date(p.startDate);date(p.endDate);
+    if(p.endDate<p.startDate)throw Error("Ongeldige projectperiode");
+    return {type:"task",name:p.name,project:rootGroup(p,map),start:p.startDate,end:p.endDate,status:p.status,
+      level:Number(p.level||1),sortKey:hierarchyKey(p,map),folderSortKey:hierarchyKeyWithFolders(p,map),key:p.wrikeId,
+      wrikeId:String(p.wrikeId),folderChain:folderPaths.get(String(p.wrikeId))||[],parentWrikeId:String(p.parentWrikeId||"")};
   });
-
-  const milestones = data.milestones.map(m => {
-    const p = map.get(
-      String(m.wrikeId)
-    );
-
-    if (!p) {
-      throw Error(
-        "Ongeldige projectkoppeling: " +
-        m.title
-      );
-    }
-
+  const milestones=data.milestones.map(m=>{
+    const p=map.get(String(m.wrikeId));if(!p)throw Error("Ongeldige projectkoppeling: "+m.title);
     date(m.date);
-
-    return {
-      type: "milestone",
-      name: m.title,
-      project: rootGroup(p, map),
-      parentProject: p.name,
-      start: m.date,
-      end: m.date,
-      status: m.status || "Planned",
-      level: Number(p.level || 1) + 1,
-      sortKey:
-        hierarchyKey(p, map) +
-        " / " +
-        m.date +
-        " " +
-        m.title,
-      key: "m" + m.id
-    };
+    return {type:"milestone",name:m.title,project:rootGroup(p,map),parentProject:p.name,start:m.date,end:m.date,status:m.status||"Planned",
+      level:Number(p.level||1)+1,sortKey:hierarchyKey(p,map)+" / "+m.date+" "+m.title,
+      folderSortKey:hierarchyKeyWithFolders(p,map)+" / "+m.date+" "+m.title,
+      key:"m"+m.id,wrikeId:String(m.wrikeId),folderChain:folderPaths.get(String(m.wrikeId))||[],parentWrikeId:String(p.parentWrikeId||"")};
   });
-
-  return [
-    ...projects,
-    ...milestones
-  ];
+  return [...projects,...milestones];
 }
-
-/* TIJDLIJN */
-
-function timeline() {
-  const values = all.flatMap(x => [
-    +date(x.start),
-    +date(x.end)
-  ]);
-
-  first = addMonth(
-    month(
-      new Date(
-        Math.min(
-          ...values,
-          Date.now()
-        )
-      )
-    ),
-    -1
-  );
-
-  last = addMonth(
-    month(
-      new Date(
-        Math.max(
-          ...values,
-          Date.now()
-        )
-      )
-    ),
-    2
-  );
-
-  months = Math.max(
-    3,
-    (
-      last.getUTCFullYear() -
-      first.getUTCFullYear()
-    ) * 12 +
-    last.getUTCMonth() -
-    first.getUTCMonth()
-  );
+function timeline(){
+  const values=all.flatMap(x=>[+date(x.start),+date(x.end)]);
+  first=addMonth(month(new Date(Math.min(...values,Date.now()))),-1);
+  last=addMonth(month(new Date(Math.max(...values,Date.now()))),2);
+  months=Math.max(3,(last.getUTCFullYear()-first.getUTCFullYear())*12+last.getUTCMonth()-first.getUTCMonth());
 }
-
-function offset(value, w) {
-  const x =
-    typeof value === "string"
-      ? date(value)
-      : value;
-
-  const m = month(x);
-
-  const i =
-    (
-      m.getUTCFullYear() -
-      first.getUTCFullYear()
-    ) * 12 +
-    m.getUTCMonth() -
-    first.getUTCMonth();
-
-  return w * (
-    i +
-    (x - m) /
-    (addMonth(m, 1) - m)
-  );
+function offset(value,w){
+  const x=typeof value==="string"?date(value):value,m=month(x);
+  const i=(m.getUTCFullYear()-first.getUTCFullYear())*12+m.getUTCMonth()-first.getUTCMonth();
+  return w*(i+(x-m)/(addMonth(m,1)-m));
 }
-
-function makeRow(w, group = false) {
-  const r = element(
-    "div",
-    "chartrow" +
-    (group ? " group" : "")
-  );
-
-  const left = element(
-    "div",
-    "cellname"
-  );
-
-  const right = element(
-    "div",
-    "timeline"
-  );
-
-  right.style.width =
-    (months * w) + "px";
-
-  right.style.setProperty(
-    "--w",
-    w + "px"
-  );
-
-  r.append(left, right);
-
-  return [
-    r,
-    left,
-    right
-  ];
+function makeRow(w,group=false){
+  const r=element("div","chartrow"+(group?" group":"")),left=element("div","cellname"),right=element("div","timeline");
+  right.style.width=(months*w)+"px";right.style.setProperty("--w",w+"px");r.append(left,right);return [r,left,right];
 }
-
-/* GANTT TEKENEN */
-
-function render() {
-  const w = Number(
-    $("zoom").value
-  );
-
-  const project =
-    $("project").value;
-
-  const kind =
-    $("kind").value;
-
-  const search =
-    $("q").value.toLocaleLowerCase("nl");
-
-  const rows = all.filter(x =>
-    (
-      !project ||
-      x.project === project
-    ) &&
-    (
-      kind === "all" ||
-      x.type === kind
-    ) &&
-    (
-      !search ||
-      (
-        x.name + " " +
-        x.project + " " +
-        (x.parentProject || "")
-      )
-        .toLocaleLowerCase("nl")
-        .includes(search)
-    )
-  );
-
-  rows.sort((a, b) =>
-    a.project.localeCompare(
-      b.project,
-      "nl"
-    ) ||
-    a.sortKey.localeCompare(
-      b.sortKey,
-      "nl"
-    ) ||
-    a.start.localeCompare(
-      b.start
-    )
-  );
-
-  const chart =
-    $("chart");
-
-  chart.replaceChildren();
-
-  const [
-    head,
-    headLeft,
-    headRight
-  ] = makeRow(w);
-
-  head.classList.add(
-    "heading"
-  );
-
-  headLeft.textContent =
-    "Project / mijlpaal";
-
-  for (let i = 0; i < months; i++) {
-    const m = addMonth(
-      first,
-      i
-    );
-
-    const x = element(
-      "div",
-      "month",
-      m.toLocaleDateString(
-        "nl-NL",
-        {
-          month: "short",
-          year: "numeric",
-          timeZone: "UTC"
-        }
-      )
-    );
-
-    x.style.left =
-      i * w + "px";
-
-    x.style.width =
-      w + "px";
-
-    headRight.append(x);
+/* Unieke folder-identiteit met ouderproject en de volledige folder-ID-keten.
+   Daardoor worden gelijknamige folders NIET samengevoegd. */
+function appendFolders(chart,item,w,seenFolders){
+  if(!$("showFolders").checked)return;
+  const chain=item.folderChain||[];
+  const parentId=item.parentWrikeId||"root";
+  const ids=[];
+  for(let i=0;i<chain.length;i++){
+    const f=chain[i];ids.push(f.wrikeId);
+    const key=item.project+"|"+parentId+"|"+ids.join("/");
+    if(seenFolders.has(key))continue;
+    seenFolders.add(key);
+    const [r,left]=makeRow(w);
+    r.classList.add("folder-row");
+    const depth=Math.max(1,Number(item.level||1)-1)+i;
+    left.style.paddingLeft=(12+depth*15)+"px";
+    const name=element("span","",f.name);name.prepend(element("span","folder-icon"));
+    left.append(name);
+    chart.append(r);
   }
-
+}
+function render(){
+  const w=Number($("zoom").value),project=$("project").value,kind=$("kind").value;
+  const search=$("q").value.toLocaleLowerCase("nl"),showFolders=$("showFolders").checked;
+  const rows=all.filter(x=>(!project||x.project===project)&&(kind==="all"||x.type===kind)&&
+    (!search||(x.name+" "+x.project+" "+(x.parentProject||"")+(showFolders?" "+x.folderChain.map(f=>f.name).join(" "):""))
+      .toLocaleLowerCase("nl").includes(search)));
+  rows.sort((a,b)=>a.project.localeCompare(b.project,"nl")||
+    (showFolders?a.folderSortKey:a.sortKey).localeCompare(showFolders?b.folderSortKey:b.sortKey,"nl")||a.start.localeCompare(b.start));
+  const chart=$("chart");chart.replaceChildren();
+  const [head,headLeft,headRight]=makeRow(w);head.classList.add("heading");headLeft.textContent="Project / mijlpaal";
+  for(let i=0;i<months;i++){
+    const m=addMonth(first,i);
+    const x=element("div","month",m.toLocaleDateString("nl-NL",{month:"short",year:"numeric",timeZone:"UTC"}));
+    x.style.left=(i*w)+"px";x.style.width=w+"px";headRight.append(x);
+  }
   chart.append(head);
-
-  let currentGroup = "";
-
-  for (const x of rows) {
-    if (x.project !== currentGroup) {
-      currentGroup = x.project;
-
-      const [
-        groupRow,
-        groupLeft
-      ] = makeRow(
-        w,
-        true
-      );
-
-      groupLeft.textContent =
-        currentGroup;
-
-      chart.append(groupRow);
+  let currentGroup="";const seenFolders=new Set();
+  for(const x of rows){
+    if(x.project!==currentGroup){
+      currentGroup=x.project;
+      const [groupRow,groupLeft]=makeRow(w,true);groupLeft.textContent=currentGroup;chart.append(groupRow);
     }
-
-    const [
-      row,
-      left,
-      right
-    ] = makeRow(w);
-
-    left.style.paddingLeft =
-      (
-        12 +
-        Math.max(
-          0,
-          x.level - 1
-        ) * 15
-      ) + "px";
-
-    left.append(
-      element(
-        "span",
-        "",
-        (
-          x.level > 1
-            ? "↳ "
-            : ""
-        ) + x.name
-      )
-    );
-
-    const details =
-      x.status +
-      " · " +
-      x.start +
-      (
-        x.type === "task"
-          ? " → " + x.end
-          : " · " + x.parentProject
-      );
-
-    left.append(
-      element(
-        "span",
-        "detail",
-        details
-      )
-    );
-
+    appendFolders(chart,x,w,seenFolders);
+    const [row,left,right]=makeRow(w);
+    const level=x.level+(showFolders?x.folderChain.length:0);
+    left.style.paddingLeft=(12+Math.max(0,level-1)*15)+"px";
+    left.append(element("span","",(level>1?"↳ ":"")+x.name));
+    left.append(element("span","detail",x.status+" · "+x.start+(x.type==="task"?" → "+x.end:" · "+x.parentProject)));
     let marker;
-
-    if (x.type === "milestone") {
-      marker = element(
-        "div",
-        "diamond" +
-        (
-          /done|complete|afgerond|gereed/i
-            .test(x.status)
-            ? " done"
-            : ""
-        )
-      );
-
-      marker.style.left =
-        offset(
-          x.start,
-          w
-        ) + "px";
-    } else {
-      marker = element(
-        "div",
-        "bar"
-      );
-
-      const a = offset(
-        x.start,
-        w
-      );
-
-      const b = offset(
-        new Date(
-          +date(x.end) + DAY
-        ),
-        w
-      );
-
-      marker.style.left =
-        a + "px";
-
-      marker.style.width =
-        Math.max(
-          3,
-          b - a
-        ) + "px";
+    if(x.type==="milestone"){
+      marker=element("div","diamond"+(/done|complete|afgerond|gereed/i.test(x.status)?" done":""));
+      marker.style.left=offset(x.start,w)+"px";
+    }else{
+      marker=element("div","bar");const a=offset(x.start,w),b=offset(new Date(+date(x.end)+DAY),w);
+      marker.style.left=a+"px";marker.style.width=Math.max(3,b-a)+"px";
     }
-
-    marker.title =
-      x.name +
-      " | " +
-      x.status +
-      " | " +
-      x.start +
-      (
-        x.type === "task"
-          ? " t/m " + x.end
-          : ""
-      );
-
+    marker.title=x.name+" | "+x.status+" | "+x.start+(x.type==="task"?" t/m "+x.end:"");
     right.append(marker);
-
-    const now =
-      new Date();
-
-    if (
-      now >= first &&
-      now <= last
-    ) {
-      const today = element(
-        "div",
-        "today"
-      );
-
-      today.style.left =
-        offset(
-          now,
-          w
-        ) + "px";
-
-      right.append(today);
-    }
-
+    const now=new Date();
+    if(now>=first&&now<=last){const today=element("div","today");today.style.left=offset(now,w)+"px";right.append(today);}
     chart.append(row);
   }
-
-  if (!rows.length) {
-    chart.append(
-      element(
-        "div",
-        "empty",
-        "Geen onderdelen voor deze filters."
-      )
-    );
-  }
+  $("folderLegend").hidden=!showFolders;
+  if(!rows.length)chart.append(element("div","empty","Geen onderdelen voor deze filters."));
 }
-
-/* INITIALISATIE */
-
-async function initialize() {
-  for (const id of [
-    "q",
-    "project",
-    "zoom",
-    "kind"
-  ]) {
-    $(id).addEventListener(
-      id === "q"
-        ? "input"
-        : "change",
-      render
-    );
+async function initialize(){
+  for(const id of ["q","project","zoom","kind","showFolders"]){
+    $(id).addEventListener(id==="q"?"input":"change",render);
   }
-
-  $("reset").onclick = () => {
-    $("q").value = "";
-    $("project").value = "";
-    $("zoom").value = "72";
-    $("kind").value = "all";
-
-    render();
+  $("reset").onclick=()=>{
+    $("q").value="";$("project").value="";$("zoom").value="72";$("kind").value="all";$("showFolders").checked=true;render();
   };
-
-  try {
-    const response = await fetch(
-      "./gantt-data.json?v=" + Date.now(),
-      {
-        cache: "no-store"
-      }
-    );
-
-    if (!response.ok) {
-      throw Error(
-        "Publicatiegegevens ontbreken (HTTP " +
-        response.status +
-        ")"
-      );
-    }
-
-    const data =
-      await response.json();
-
-    all = loadModel(data);
-
-    if (!all.length) {
-      throw Error(
-        "Geen projecten beschikbaar"
-      );
-    }
-
+  try{
+    const response=await fetch("./gantt-data.json?v="+Date.now(),{cache:"no-store"});
+    if(!response.ok)throw Error("Publicatiegegevens ontbreken (HTTP "+response.status+")");
+    const data=await response.json();all=loadModel(data);
+    if(!all.length)throw Error("Geen projecten beschikbaar");
     timeline();
-
-    const names = [
-      ...new Set(
-        all.map(
-          x => x.project
-        )
-      )
-    ].sort(
-      (a, b) =>
-        a.localeCompare(
-          b,
-          "nl"
-        )
-    );
-
-    for (const name of names) {
-      $("project").append(
-        new Option(
-          name,
-          name
-        )
-      );
-    }
-
-    // Publicatietijd uit JSON:
-    // UTC omzetten naar Nederlandse tijd.
-    const publishedRaw = String(
-      data.publishedAt || ""
-    );
-
-    const publishedDate = new Date(
-      publishedRaw
-        .replace(" UTC", "Z")
-        .replace(" ", "T")
-    );
-
-    $("published").textContent =
-      "Gepubliceerd: " +
-      (
-        publishedRaw &&
-        !isNaN(publishedDate.getTime())
-          ? new Intl.DateTimeFormat(
-              "nl-NL",
-              {
-                timeZone: "Europe/Amsterdam",
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false
-              }
-            ).format(publishedDate)
-          : (
-              publishedRaw ||
-              "onbekend"
-            )
-      );
-
+    const names=[...new Set(all.map(x=>x.project))].sort((a,b)=>a.localeCompare(b,"nl"));
+    for(const name of names)$("project").append(new Option(name,name));
+    const publishedRaw=String(data.publishedAt||"");
+    const publishedDate=new Date(publishedRaw.replace(" UTC","Z").replace(" ","T"));
+    $("published").textContent="Gepubliceerd: "+(publishedRaw&&!isNaN(publishedDate.getTime())
+      ?new Intl.DateTimeFormat("nl-NL",{timeZone:"Europe/Amsterdam",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(publishedDate)
+      :(publishedRaw||"onbekend"));
     render();
-  } catch (error) {
-    $("error").hidden = false;
-
-    $("error").textContent =
-      "Gantt kan niet worden geladen: " +
-      error.message;
-
-    $("chart").replaceChildren();
+  }catch(error){
+    $("error").hidden=false;$("error").textContent="Gantt kan niet worden geladen: "+error.message;$("chart").replaceChildren();
   }
 }
-
 initialize();
-
 </script>
 </body>
 </html>
